@@ -479,7 +479,7 @@ class EOFC2 extends CComponent
 		
 		if (!empty($this->tooltip))
 		{
-			$element->set_tooltip($this->tooltip);
+			$bar_stack->set_tooltip($this->tooltip);
 		}
 		foreach ($options as $key => $setting)
 		{
