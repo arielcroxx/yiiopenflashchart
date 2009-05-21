@@ -921,7 +921,7 @@ class EOFC2 extends CComponent
 		}
 		elseif (isset($options['labels']) && is_array($options['labels']) && $axis == 'x')
 		{
-            if (isset($options['vertical']) && $options['vertical'] == true)
+            if (isset($labelsOptions['vertical']) && $labelsOptions['vertical'] == true)
 			{
                 $x_axis_label = new x_axis_labels;           
                 $x_axis_label->set_vertical();          
