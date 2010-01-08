@@ -41,7 +41,10 @@ class String {
 		static $instance = array();
 
 		if (!$instance) {
-			$instance[0] =& new String();
+			//next string was this:
+			//$instance[0] =& new String();
+			//but at new versions of Yii we have got an CErrorEvent error for this line (I think it was from PHP 5.3, but can't check new code for the older PHP versions :( )
+			$instance[0] = new String();
 		}
 		return $instance[0];
 	}
