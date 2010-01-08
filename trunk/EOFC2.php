@@ -197,8 +197,8 @@ class EOFC2 extends CComponent
 	 */
 	public function begin($options = array())
 	{
-		$this->Chart	= new open_flash_chart();
-		$this->chartId	= substr(md5(rand(1, time())), 0, 4);
+		$this->Chart   = new open_flash_chart();
+		$this->chartId = md5(rand(1, time()));
 	}
 	
 	/**
@@ -208,6 +208,7 @@ class EOFC2 extends CComponent
 	 */
 	public function renderData($type = 'bar', $options = array(), $datasetName = 'default', $chartId = null)
 	{
+		$options = preg_replace('/\s+/', ' ', $options);
 		echo $this->chart($type, $options, $datasetName, $chartId);
 	}
 	
@@ -224,24 +225,21 @@ class EOFC2 extends CComponent
 	 */
 	public function render($width = null, $height = null, $chartId = null, $domId = false)
 	{
-		if (!is_null($chartId))
-		{
+		if (!is_null($chartId)) {
 			$this->chartId = $chartId;
 		}
 		
 		$this->publishAssets();
 		$this->registerClientScripts();
 		
-		if (!is_null($width))
+		if (!is_null($width)) {
 			$this->settings['width'] = $width;
-		if (!is_null($height))
+		}
+		if (!is_null($height)) {
 			$this->settings['height'] = $height;
+		}
 		
-		$swf =
-		'<script type="text/javascript">/*<![CDATA[*/swfobject.embedSWF("' . $this->baseUrl . '/open-flash-chart.swf","chart_' . $this->chartId . '","' . $this->settings['width'] . '","' . $this->settings['height'] . '","9.0.0","",{"get-data" : "get_data_' . $this->chartId . '"});/*]]>*/</script>
-		<div id="chart_' . $this->chartId . '"></div>';
-		
-		echo $swf;
+		echo '<script type="text/javascript">/*<![CDATA[*/swfobject.embedSWF("', $this->baseUrl, '/open-flash-chart.swf","chart_', $this->chartId, '","', $this->settings['width'], '","', $this->settings['height'], '","9.0.0","",{"get-data":"get_data_', $this->chartId, '"});/*]]>*/</script><div id="chart_', $this->chartId, '"></div>';
 	}
 	
 	/**
